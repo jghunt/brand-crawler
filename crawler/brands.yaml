@@ -1,0 +1,70 @@
+# Per-brand settings for the free GitHub crawler (brands with scrape_method = crawl4ai in brand_list).
+#   start_urls : women's listing pages to open first (leggings, shorts, bras, tops…).
+#                If empty, the crawler uses brand_list › collection_urls, then discovers listing
+#                pages itself from `discover_from` (it follows links that look like women's
+#                leggings / shorts / bras / tops pages).
+#   product_url: regex a product page URL must match.
+#   shopify    : true → first try the Shopify JSON feed from GitHub (often not blocked here).
+#   page_param : add ?page=2,3… to listing pages (Shopify-style pagination).
+dfyne:
+  shopify: true
+  discover_from: [https://eu.dfyne.com/]
+  product_url: '/products/[^/?#]+'
+  page_param: page
+alphalete:
+  shopify: true
+  discover_from: [https://alphaleteathletics.com/]
+  product_url: '/products/[^/?#]+'
+  page_param: page
+fleo:
+  shopify: true
+  start_urls:
+    - https://fleo.com/collections/shorts
+    - https://fleo.com/collections/leggings
+    - https://fleo.com/collections/sports-bras
+    - https://fleo.com/collections/crops-tanks-sweatshirts
+  product_url: '/products/[^/?#]+'
+  page_param: page
+gymshark:
+  shopify: false
+  discover_from: [https://ch.gymshark.com/collections/all-products/womens]
+  product_url: '/products/[a-z0-9-]+'
+lululemon:
+  discover_from: [https://www.eu.lululemon.com/en-ch/c/women]
+  start_urls:
+    - https://www.eu.lululemon.com/en-ch/c/women/womens-leggings
+    - https://www.eu.lululemon.com/en-ch/c/women/womens-shorts
+    - https://www.eu.lululemon.com/en-ch/c/women/womens-sports-bras
+    - https://www.eu.lululemon.com/en-ch/c/women/womens-tops
+  product_url: '/p/[^?#]+'
+puma:
+  discover_from: [https://eu.puma.com/ch/fr/femme]
+  product_url: '/pd/[^?#]+'
+adidas:
+  discover_from: [https://www.adidas.ch/de/frauen]
+  start_urls:
+    - https://www.adidas.ch/de/frauen-leggings
+    - https://www.adidas.ch/de/frauen-shorts
+    - https://www.adidas.ch/de/frauen-sport_bhs
+    - https://www.adidas.ch/de/frauen-oberteile
+  product_url: '/[a-z0-9-]+/[A-Z]{2}[0-9]{4}\.html'
+nikeskims:
+  discover_from: [https://www.nike.com/ch/w/nikeskims-b2asd]
+  start_urls: [https://www.nike.com/ch/w/nikeskims-b2asd]
+  product_url: '/t/[^?#]+'
+under-armour:
+  discover_from: [https://www.underarmour.com/en-ch/c/womens/]
+  start_urls:
+    - https://www.underarmour.com/en-ch/c/womens/bottoms/leggings/
+    - https://www.underarmour.com/en-ch/c/womens/bottoms/shorts/
+    - https://www.underarmour.com/en-ch/c/womens/sports-bras/
+    - https://www.underarmour.com/en-ch/c/womens/tops/
+  product_url: '/p/[^?#]+'
+fabletics:
+  discover_from: [https://www.fabletics.com/womens]
+  start_urls:
+    - https://www.fabletics.com/womens/leggings
+    - https://www.fabletics.com/womens/shorts
+    - https://www.fabletics.com/womens/sports-bras
+    - https://www.fabletics.com/womens/tops
+  product_url: '/products/[^?#]+'
