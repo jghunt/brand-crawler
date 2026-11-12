@@ -1,0 +1,38 @@
+name: brand-crawler
+
+on:
+  schedule:
+    - cron: '0 21 * * *'   # 22:00 Zurich (winter time)
+  workflow_dispatch:
+    inputs:
+      brand:
+        description: 'Only this brand_id (e.g. fleo). Leave empty for all brands.'
+        required: false
+        default: ''
+      max_products:
+        description: 'Max products per brand'
+        required: false
+        default: '600'
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: |
+          pip install -r requirements.txt
+          crawl4ai-setup || python -m playwright install --with-deps chromium
+      - name: Crawl
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          ARGS="--max-products ${{ github.event.inputs.max_products || '600' }}"
+          if [ -n "${{ github.event.inputs.brand }}" ]; then
+            ARGS="$ARGS --brand ${{ github.event.inputs.brand }}"
+          fi
+          python crawler/crawl.py $ARGS
