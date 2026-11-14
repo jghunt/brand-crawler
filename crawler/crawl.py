@@ -15,6 +15,8 @@ For each brand:
      and updates brand_list › last_scraped / products_found / last_error.
      Product lines (product_lines file) are rebuilt by the Apps Script on its next run
      (or straight away: product_list › Scraper › Rebuild product lines now).
+  v3 (2026-11-13): sheet read once (fixes 'sheet write: APIError 400' for FLEO / Gymshark / Alphalete);
+     short error text in brand_list; on_sale filled.
   v2 (2026-11-12): FLEO price from the page's price tags + colour from the URL; inseam / fabric with the
      same rules as the Apps Script v2.7; sizes upper-case small→large; stale errors cleared on success.
 
@@ -332,7 +334,7 @@ def row_from_page(brand, url, html, markdown, curated):
                 'product_type': main.get('category', '') if isinstance(main.get('category'), str) else '',
                 'scope_category': classify(title + ' ' + url), 'description': desc[:1500],
                 'price_current': min(prices) if prices else '', 'price_full': max(prices) if prices else '',
-                'currency': cur, 'on_sale': '',
+                'currency': cur, 'on_sale': 'FALSE' if prices else '',
                 'colours': ' | '.join(colours), 'colour_count': len(colours) or '',
                 'sizes': ' | '.join(sizes), 'size_range': size_range(sizes),
                 'image_urls': ' | '.join(i for i in imgs if i)})
@@ -423,18 +425,15 @@ HASH_FIELDS = ['product_title', 'description', 'price_full', 'colours', 'sizes',
 
 def write_products(gc, brand_id, rows, dry):
     ws = gc.open_by_key(PRODUCT_LIST_ID).worksheet('products')
-    head = ws.row_values(1)
+    # v3: read the sheet ONCE. (v2 asked for every existing row as its own range in one request; with
+    #     500+ rows that URL was too long and Google answered "Error 400 (Bad Request)" → nothing was saved.)
+    allv = ws.get_all_values()
+    head = allv[0]
     col = {h: i for i, h in enumerate(head)}
-    keys = ws.col_values(col['product_key'] + 1)
-    brands = ws.col_values(col['brand_id'] + 1)
+    keys = [(r[col['product_key']] if len(r) > col['product_key'] else '') for r in allv]
     index = {k: i + 1 for i, k in enumerate(keys) if i > 0 and k}
     existing_rows = [r for k, r in index.items() if k.startswith(brand_id + ':')]
-    old = {}
-    if existing_rows:
-        ranges = [f"A{r}:{col_letter(len(head))}{r}" for r in existing_rows]
-        for r, vals in zip(existing_rows, ws.batch_get(ranges)):
-            v = (vals[0] if vals else []) + [''] * len(head)
-            old[r] = v[:len(head)]
+    old = {r: (allv[r - 1] + [''] * len(head))[:len(head)] for r in existing_rows}
     updates, appends, seen = [], [], set()
     for obj in rows:
         k = obj['product_key']; seen.add(k)
@@ -528,7 +527,9 @@ def main():
             up, ap_ = write_products(gc, bid, rows, a.dry_run) if rows else (0, 0)
             log(f"  written: {up} updated, {ap_} new")
         except Exception as e:
-            errors.append(f"sheet write: {e}")
+            msg = re.sub(r'<[^>]+>|\s+', ' ', str(e))
+            m = re.search(r'Error (\d{3})[^!]*', msg)
+            errors.append('sheet write failed: ' + (m.group(0).strip() if m else msg[:120]))
         write_brand(gc, b, len(rows), ' | '.join(str(e) for e in errors), a.dry_run)
 
 
