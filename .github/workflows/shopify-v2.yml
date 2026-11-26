@@ -1,0 +1,38 @@
+name: shopify-v2
+
+# Scrapes every Shopify brand in shopify/brands.json from GitHub's network (the home IP is
+# rate-limited by Shopify) and commits the items_<brand>.tsv files (v2 collection_items
+# column order) back to this branch. Writes nothing to Google Sheets.
+on:
+  push:
+    branches: [shopify-v2]
+    paths: ['shopify/scrape.mjs', 'shopify/brands.json', '.github/workflows/shopify-v2.yml']
+  workflow_dispatch:
+    inputs:
+      brands:
+        description: 'Space-separated brand_ids (empty = all)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Scrape
+        working-directory: shopify
+        run: node scrape.mjs ${{ github.event.inputs.brands }} | tee out/run.log
+      - name: Commit results
+        run: |
+          git config user.name "brand-crawler bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add shopify/out
+          git commit -m "Shopify scrape $(date -u +%F) [skip ci]" || echo "nothing to commit"
+          git push

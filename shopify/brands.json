@@ -1,0 +1,282 @@
+[
+ {
+  "brand": "crzyoga",
+  "name": "CRZ YOGA",
+  "origin": "https://eu.crzyoga.com",
+  "cur": "EUR",
+  "women_tag": "Department_Women",
+  "fabric_tag": "Collection_"
+ },
+ {
+  "brand": "dfyne",
+  "name": "DFYNE",
+  "origin": "https://eu.dfyne.com",
+  "cur": "EUR"
+ },
+ {
+  "brand": "aybl",
+  "name": "AYBL",
+  "origin": "https://eu.aybl.com",
+  "cur": "EUR"
+ },
+ {
+  "brand": "heroismo",
+  "name": "HEROISMO",
+  "origin": "https://heroismo.shop",
+  "cur": "EUR"
+ },
+ {
+  "brand": "thrivin",
+  "name": "Thrivin",
+  "origin": "https://thrivin.com",
+  "cur": "EUR"
+ },
+ {
+  "brand": "lzloff",
+  "name": "LZLOFF",
+  "origin": "https://lzloff.fr",
+  "cur": "EUR"
+ },
+ {
+  "brand": "dragonfly",
+  "name": "Dragonfly",
+  "origin": "https://dragonflybrand.ch",
+  "cur": "CHF"
+ },
+ {
+  "brand": "fleo",
+  "name": "FLEO",
+  "origin": "https://checkout.fleo.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "born-primitive",
+  "name": "Born Primitive",
+  "origin": "https://bornprimitive.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "pursue-fitness",
+  "name": "Pursue Fitness",
+  "origin": "https://www.pursuefitness.com",
+  "cur": "GBP"
+ },
+ {
+  "brand": "bombshell",
+  "name": "Bombshell Sportswear",
+  "origin": "https://www.bombshellsportswear.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "alphalete",
+  "name": "Alphalete",
+  "origin": "https://alphaleteathletics.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "aurola",
+  "name": "AUROLA",
+  "origin": "https://www.aurolaus.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "buffbunny",
+  "name": "Buffbunny",
+  "origin": "https://www.buffbunny.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "doyoueven",
+  "name": "DOYOUEVEN",
+  "origin": "https://www.doyoueven.com",
+  "cur": "AUD"
+ },
+ {
+  "brand": "oner-active",
+  "name": "Oner Active",
+  "origin": "https://de.oneractive.com",
+  "cur": "EUR"
+ },
+ {
+  "brand": "ryderwear",
+  "name": "Ryderwear",
+  "origin": "https://www.ryderwear.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "csb",
+  "name": "CSB",
+  "origin": "https://www.shopcsb.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "nvgtn",
+  "name": "NVGTN",
+  "origin": "https://nvgtn.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "kamo",
+  "name": "Kamo Fitness",
+  "origin": "https://kamofitness.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "lndr",
+  "name": "LNDR",
+  "origin": "https://lndr.com",
+  "cur": "GBP"
+ },
+ {
+  "brand": "teveo",
+  "name": "TEVEO",
+  "origin": "https://teveo.com",
+  "prefix": "/en-eu",
+  "cur": "EUR"
+ },
+ {
+  "brand": "alo",
+  "name": "Alo Yoga",
+  "origin": "https://www.aloyoga.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "bellerive",
+  "name": "Bellerive",
+  "origin": "https://bellerive.co",
+  "cur": "EUR"
+ },
+ {
+  "brand": "solbrace",
+  "name": "Solbrace",
+  "origin": "https://solbrace.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "luveon",
+  "name": "Luveon",
+  "origin": "https://luveon.com",
+  "cur": "EUR"
+ },
+ {
+  "brand": "aeon",
+  "name": "Aeon Athletics",
+  "origin": "https://aeonathletics.com",
+  "cur": "EUR"
+ },
+ {
+  "brand": "adanola",
+  "name": "Adanola",
+  "origin": "https://adanola.com",
+  "cur": "GBP"
+ },
+ {
+  "brand": "set-active",
+  "name": "Set Active",
+  "origin": "https://setactive.co",
+  "cur": "USD"
+ },
+ {
+  "brand": "splits59",
+  "name": "Splits59",
+  "origin": "https://splits59.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "girlfriend",
+  "name": "Girlfriend Collective",
+  "origin": "https://girlfriend.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "vitality",
+  "name": "Vitality",
+  "origin": "https://shopvitality.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "boombooty",
+  "name": "BoomBooty",
+  "origin": "https://boombooty.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "tala",
+  "name": "TALA",
+  "origin": "https://www.wearetala.com",
+  "cur": "GBP"
+ },
+ {
+  "brand": "optive",
+  "name": "OPTIVE",
+  "origin": "https://www.optivesportswear.com",
+  "cur": "EUR"
+ },
+ {
+  "brand": "yeoreo",
+  "name": "Yeoreo",
+  "origin": "https://www.yeoreo.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "bo-tee",
+  "name": "Bo+Tee",
+  "origin": "https://boandtee.com",
+  "cur": "GBP"
+ },
+ {
+  "brand": "powerlete",
+  "name": "Powerlete",
+  "origin": "https://powerleteclo.com",
+  "cur": "GBP"
+ },
+ {
+  "brand": "phuture",
+  "name": "PHUTURE",
+  "origin": "https://www.thephuture.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "sfigure",
+  "name": "Sfigure",
+  "origin": "https://sfigure.com",
+  "cur": "USD"
+ },
+ {
+  "brand": "lympa",
+  "name": "Lympa",
+  "origin": "https://lympa.com",
+  "cur": "CHF"
+ },
+ {
+  "brand": "mlp",
+  "name": "MLP (Marie Louise Paris)",
+  "origin": "https://marielouise-paris.com",
+  "cur": "EUR"
+ },
+ {
+  "brand": "fernfitness",
+  "name": "Fern Fitness",
+  "origin": "https://www.fernfitness.co",
+  "cur": "GBP"
+ },
+ {
+  "cut": "stringer|stringers|lifting straps?",
+  "brand": "ironfit",
+  "name": "Iron Fit",
+  "origin": "https://www.ironfit.ie",
+  "cur": "EUR"
+ },
+ {
+  "brand": "bombafit",
+  "name": "Bombafit",
+  "origin": "https://bombafit.it",
+  "cur": "EUR"
+ },
+ {
+  "brand": "rfrm",
+  "name": "RFRM Active",
+  "origin": "https://eu.rfrmactive.com",
+  "cur": "EUR"
+ }
+]
