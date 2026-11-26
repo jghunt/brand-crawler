@@ -29,6 +29,10 @@ jobs:
       - name: Scrape
         working-directory: shopify
         run: node scrape.mjs ${{ github.event.inputs.brands }} | tee out/run.log
+      - name: Post-fix (colour in quotes / in the line name, French garment words)
+        run: |
+          python3 shopify/fix_quote_colour.py shopify/out/items_teveo.tsv || true
+          python3 shopify/fix_github_items.py shopify/out/items_*.tsv
       - name: Commit results
         run: |
           git config user.name "brand-crawler bot"
