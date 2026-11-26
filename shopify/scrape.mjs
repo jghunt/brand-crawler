@@ -6,7 +6,7 @@ const HEAD=['product_key','collection_key','brand_id','brand_name','status','pro
 const today=new Date().toISOString().slice(0,10);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const MEN=/(\bmen'?s\b|\bmens\b|\bmale\b|\bboys?\b|\bkids?\b|\bgirls\b|\bjunior\b|\byouth\b|department_man\b|\bfor him\b)/i;
-const ACC=/\b(bottles?|bags?|backpacks?|socks?|caps?|hats?|beanies?|gift\s*cards?|shoes?|sneakers?|slides?|towels?|mats?|headbands?|scrunchies?|hair|jewel\w*|necklaces?|candles?|stickers?|keyrings?|wallets?|belts?|gloves?|wrist\w*|lifting|shakers?|insurance|shipping|protection|samples?|e-?gift|vouchers?|water)\b/i;
+const ACC=/\b(bottles?|bags?|backpacks?|socks?|caps?|hats?|beanies?|gift\s*cards?|shoes?|sneakers?|slides?|towels?|mats?|headbands?|scrunchies?|hair|jewel\w*|necklaces?|candles?|stickers?|keyrings?|wallets?|belts?|gloves?|wrist\w*|lifting|shakers?|mugs?|cuppa|insurance|shipping|protection|samples?|e-?gift|vouchers?|water)\b/i;
 const NOUN=/\b(women'?s|womens|ladies|leggings?|tights|joggers?|sweatpants?|pants?|trousers?|bike\s*shorts|biker\s*shorts|cycling\s*shorts|shorts?|sports?\s*bras?|bras?|bralettes?|t-shirts?|tees?|shirts?|tops?|unitards?|bodysuits?|jumpsuits?|rompers?|skorts?|skirts?|underwear|with|and|the|for)\b/gi;
 async function getJSON(url){for(let a=0;a<12;a++){const r=await fetch(url,{headers:UA});if(r.status===429){const ra=+(r.headers.get('retry-after')||60);await sleep((ra+5)*1000);continue}if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}throw new Error('rate limited')}
 function rowsFor(cfg,all){const out=[];
@@ -16,21 +16,21 @@ for(const x of all){
  if(ACC.test(x.title+' '+x.product_type)) continue;
  const t=x.title, tt=t.toLowerCase(), tts=tt.replace(/short[\s-]*sleeves?/g,''), tl=meta.toLowerCase();
  let ty= /bikini/.test(tt)?(/bottom|brief|short/.test(tts)?'bikini bottom':'bikini top'): /bodysuit|jumpsuit|unitard|romper|onesie|all[\s-]in[\s-]one|catsuit/.test(tt)?'bodysuit': /\bbras?\b|bralette/.test(tt)?'sports bra': /flare/.test(tt)?'flares': /skort|skirt/.test(tt)?'skort': /short/.test(tts)?'shorts': /legging|tights|capri/.test(tt)?'leggings': /pant|jogger|trouser|sweatpant/.test(tt)?'pants': /top|tank|tee|shirt|sleeve|hoodie|sweat|crop|cami|jacket|pullover|vest|zip/.test(tt)?'top': /\bbras?\b/.test(tl)?'sports bra': /legging/.test(tl)?'leggings': /short/.test(tl)?'shorts':'other';
- let s=t.replace(/\(.*?\)/g,' ').replace(/\d+([.,]\d+)?\s*(''|"|â€|cm\b|inch(es)?\b|in\b)/gi,' ').replace(new RegExp('^'+cfg.name.replace(/[^\w ]/g,'.')+'\\s*','i'),'');
+ let s=t.replace(/\(.*?\)/g,' ').replace(/\d+([.,]\d+)?\s*(''|"|”|cm\b|inch(es)?\b|in\b)/gi,' ').replace(new RegExp('^'+cfg.name.replace(/[^\w ]/g,'.')+'\\s*','i'),'');
  if(cfg.cut) s=s.replace(new RegExp(cfg.cut,'gi'),' ');
- s=s.replace(/\s[-â€“|]\s.*$/,m=>/seam|waist|rise|back|neck|pocket|scrunch|flare|lift|sculpt|v-|halter|strap/i.test(m)?' '+m:'');
- s=s.replace(/short[\s-]*sleeves?/gi,'shortsleeve').replace(NOUN,' ').replace(/shortsleeve/g,'Short Sleeve').replace(/[,|/â€“]/g,' ').replace(/\s-\s/g,' ').replace(/\s+/g,' ').replace(/^[\s-]+|[\s-]+$/g,'').trim();
+ s=s.replace(/\s[-–—|]\s.*$/,m=>/seam|waist|rise|back|neck|pocket|scrunch|flare|lift|sculpt|v-|halter|strap/i.test(m)?' '+m:'');
+ s=s.replace(/short[\s-]*sleeves?/gi,'shortsleeve').replace(NOUN,' ').replace(/shortsleeve/g,'Short Sleeve').replace(/[,|/–—]/g,' ').replace(/\s-\s/g,' ').replace(/\s+/g,' ').replace(/^[\s-]+|[\s-]+$/g,'').trim();
  if(!s) s=ty;
  const opt=n=>{const o=(x.options||[]).find(o=>n.test(o.name));return o?o.values:[]};
- let cols=opt(/colou?r|farbe|couleur|shade/i); const sizes=opt(/size|grÃ¶ÃŸe|taille/i);
- if(!cols.length){const m=t.match(/\s[-â€“|]\s([^-â€“|]+)$/); if(m && !/seam|waist|rise|back|neck|pocket|scrunch|flare|lift/i.test(m[1])) cols=[m[1].trim()];}
+ let cols=opt(/colou?r|farbe|couleur|shade/i); const sizes=opt(/size|größe|taille/i);
+ if(!cols.length){const m=t.match(/\s[-–—|]\s([^-–—|]+)$/); if(m && !/seam|waist|rise|back|neck|pocket|scrunch|flare|lift/i.test(m[1])) cols=[m[1].trim()];}
  const pr=x.variants.map(v=>+v.price), cmp=x.variants.map(v=>+(v.compare_at_price||0));
  const pc=Math.min(...pr), pf=Math.max(Math.max(...cmp),Math.max(...pr));
  const body=(x.body_html||'').replace(/<[^>]+>/g,' ').replace(/&[a-z#0-9]+;/g,' ').replace(/\s+/g,' ').trim();
- const bl=(body.match(/\d+([.,]\d+)?\s*%\s*(recycled\s+)?(nylon|polyamide?|elastane|spandex|polyester|cotton|lycra|modal|viscose|lyocell|tencel|wool|cashmere|rayon|elasthan\w*|polyamid\w*|baumwolle|Ã©lasthanne|coton)/gi)||[]);
+ const bl=(body.match(/\d+([.,]\d+)?\s*%\s*(recycled\s+)?(nylon|polyamide?|elastane|spandex|polyester|cotton|lycra|modal|viscose|lyocell|tencel|wool|cashmere|rayon|elasthan\w*|polyamid\w*|baumwolle|élasthanne|coton)/gi)||[]);
  const blend=[...new Set(bl.map(b=>b.replace(/\s+/g,' ')))].join(' / ');
- const el=(blend.match(/(\d+([.,]\d+)?)\s*%\s*(elastane|spandex|lycra|elasthan\w*|Ã©lasthanne)/i)||[])[1]||'';
- const inch=(t.match(/(\d+([.,]\d+)?)\s*(''|"|â€|inch)/i)||[])[1]||'', cm=(t.match(/(\d+([.,]\d+)?)\s*cm/i)||[])[1]||'';
+ const el=(blend.match(/(\d+([.,]\d+)?)\s*%\s*(elastane|spandex|lycra|elasthan\w*|élasthanne)/i)||[])[1]||'';
+ const inch=(t.match(/(\d+([.,]\d+)?)\s*(''|"|”|inch)/i)||[])[1]||'', cm=(t.match(/(\d+([.,]\d+)?)\s*cm/i)||[])[1]||'';
  const rise=/high[\s-]*(waist|rise)/i.test(t)?'high':/mid[\s-]*(waist|rise)/i.test(t)?'mid':/low[\s-]*(waist|rise)/i.test(t)?'low':'';
  const feat=[[/pocket/i,'pockets'],[/scrunch/i,'scrunch'],[/seamless/i,'seamless'],[/no front seam/i,'no front seam'],[/compression/i,'compression'],[/moisture|sweat-wicking|quick.?dry/i,'moisture-wicking'],[/4-way|four-way/i,'4-way stretch'],[/removable pad|padded/i,'removable pads'],[/push.?up/i,'push-up'],[/squat.?proof|non-see-through|not see.?through/i,'squat-proof'],[/built.?in bra|shelf bra/i,'built-in bra']].filter(([r])=>r.test(t+' '+body)).map(f=>f[1]);
  const fab=cfg.fabric_tag?((tags.find(g=>g.startsWith(cfg.fabric_tag))||'').slice(cfg.fabric_tag.length)):'';
