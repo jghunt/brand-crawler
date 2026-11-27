@@ -33,6 +33,8 @@ jobs:
         run: |
           python3 shopify/fix_quote_colour.py shopify/out/items_teveo.tsv || true
           python3 shopify/fix_github_items.py shopify/out/items_*.tsv
+      - name: Lowercase (catalogue rule: every text value lowercase, urls kept)
+        run: python3 shopify/lowercase.py shopify/out/*.tsv
       - name: Commit results
         run: |
           git config user.name "brand-crawler bot"
